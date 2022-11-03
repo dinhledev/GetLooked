@@ -1,0 +1,5 @@
+On MySQL workbench:
+
+Right click on the reentry_organizations table, select "table data import wizard", 
+choose this csv file, and keep clicking next until it loads into the table
+

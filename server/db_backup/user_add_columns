@@ -1,0 +1,51 @@
+/* delete new column */
+ALTER TABLE users 
+DROP COLUMN ssn ,
+DROP COLUMN photo_id,
+DROP COLUMN birth_certificate,
+DROP COLUMN gender ,
+DROP COLUMN dom_violence ,
+DROP COLUMN has_kids ,
+DROP COLUMN medical_condition ,
+DROP COLUMN mental_health ,
+DROP COLUMN substance_disorder;
+/* end delete new column */
+
+/* add new columns with new attribute  */
+ALTER TABLE users 
+ADD COLUMN ssn INT NOT NULL,
+ADD COLUMN photo_id INT NOT NULL,
+ADD COLUMN birth_certificate INT NOT NULL,
+ADD COLUMN gender VARCHAR(10) NOT NULL,
+ADD COLUMN dom_violence INT NOT NULL,
+ADD COLUMN has_kids INT NOT NULL,
+ADD COLUMN medical_condition INT NOT NULL,
+ADD COLUMN mental_health INT NOT NULL,
+ADD COLUMN substance_disorder INT NOT NULL;
+/* end new columns with new attribute  */
+
+
+/* delete then add column sentence_length again  */
+/* delete */
+ALTER TABLE users 
+DROP COLUMN sentence_length 
+/* add  */
+ALTER TABLE users 
+ADD COLUMN sentence_length INT NOT NULL
+/* end delete then add column sentence again  */
+
+
+/* add new columns for security password */
+ALTER TABLE users 
+ADD COLUMN security_question_1 VARCHAR(100) NOT NULL,
+ADD COLUMN answer_1 VARCHAR(100) NOT NULL,
+
+ADD COLUMN security_question_2 VARCHAR(100) NOT NULL,
+ADD COLUMN answer_2 VARCHAR(100) NOT NULL,
+
+ADD COLUMN security_question_3 VARCHAR(100) NOT NULL,
+ADD COLUMN answer_3 VARCHAR(100) NOT NULL
+/* end add new columns for security password */
+
+/* delete user with empty username*/
+DELETE from users where username ="";
