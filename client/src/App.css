@@ -2,7 +2,7 @@
   background-color: rgb(7, 7, 179);
 }
 .navbar-custom{
-  background-color: #ffc107 !important;
+  background-color: #e1b42f !important;
 }
 .cardTitleCustom {
   text-align: center;
@@ -195,6 +195,13 @@
   outline: none;
   
 }
+.customerImage{
+  background-image: url('./images/sports.jpg'); height: 400px;
+}
+.maskCustom{
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
 /* .pagination > .active > a{
   background-color: #47ccde ;
   border-color: #47ccde ;

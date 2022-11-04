@@ -107,199 +107,37 @@ function Home() {
   return (
     <>
     <CommonNav />
+
     <div className="container home">
-      <div className="row justify-content-center">
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={houseFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={housing}
-            />
-            <Card.Body>
-              <Card.Title>Housing Organizations</Card.Title>
-              <Card.Text>
-                Housing Organizations include day shelters, shelters,
-                transitional housing, permanent housing support.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={employFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={employment}
-            />
-            <Card.Body>
-              <Card.Title>Employment Organizations</Card.Title>
-              <Card.Text>
-                Organizations and resources that support individuals in getting
-                a job, and different educational certificates.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={basicNeedsFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={basicNeeds}
-            />
-            <Card.Body>
-              <Card.Title>Basic Needs</Card.Title>
-              <Card.Text>
-                Organizations that provide basic needs: Emergency assistance,
-                clothing assistance, food assistance.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={healthFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={health}
-            />
-            <Card.Body>
-              <Card.Title>Health Organizations</Card.Title>
-              <Card.Text>
-                Organizations include those that provide low-cost services:
-                Dental, HIV/AIDS, primary care clinics.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={hotlineFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={hotline}
-            />
-            <Card.Body>
-              <Card.Title>Hotline Services</Card.Title>
-              <Card.Text>
-                Provides information on hotlines that can be contacted in an
-                emergency or crisis situation.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={informationFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={information}
-            />
-            <Card.Body>
-              <Card.Title>Social Service Information</Card.Title>
-              <Card.Text>
-                Provides information on how to apply social services and learn
-                which ones you are eligible for.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={mentalHealthFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={mentalHealth}
-            />
-            <Card.Body>
-              <Card.Title>Mental Health Organizations</Card.Title>
-              <Card.Text>
-                Organizations that can provide mental health support which are
-                low-cost to free services.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={substanceUseFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={substanceUse}
-            />
-            <Card.Body>
-              <Card.Title>Substance Use Services</Card.Title>
-              <Card.Text>
-                Services for overcoming substance use disorder: Recovery
-                services, outpatient care, housing.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={universalFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={universal}
-            />
-            <Card.Body>
-              <Card.Title>Universal Services</Card.Title>
-              <Card.Text>
-                Organizations that provide wrap-around services to their
-                clients: Housing, healthcare, education, etc.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-3">
-          <Card style={{ cursor: "pointer" }} onClick={favFunc}>
-            <Card.Img
-              style={{ width: "19rem", height: "10rem" }}
-              variant="top"
-              src={favorites}
-            />
-            <Card.Body>
-              <Card.Title>Favorites</Card.Title>
-              <Card.Text>
-                These are Organizations that you favored. Shows a list of your
-                favorite organizations.
-              </Card.Text>
-              <Button className="fullWidth" variant="primary">
-                See More
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
+    <div class="p-5 text-center bg-image rounded-3 customerImage">
+		  <div class="mask maskCustom">
+			<div class="d-flex justify-content-center align-items-center h-100 p-3">
+			  <div class="text-white">
+				<h1 class="mb-3">Get looked at by recruiters!</h1>
+				<h4 class="mb-3">register now to connect with coaches and scouts</h4>
+				<a class="btn btn-outline-light btn-lg" href="sign-up.html" role="button">Sign Up</a>
+			  </div>
+			</div>
+		  </div>
+		</div>
+
+      <div className="row">
+      <div className="col-sm-4">
+        <h3>News</h3>
+        <p>Test Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
       </div>
+      <div className="col-sm-4">
+        <h3>Featured</h3>
+        <p>Test Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      </div>
+      <div class="col-sm-4">
+        <h3>Schools</h3>        
+        <p>Test Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
+        <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
+      </div>
+    </div>
     </div>
     </>
   );
