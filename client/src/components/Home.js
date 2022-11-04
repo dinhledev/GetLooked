@@ -105,8 +105,9 @@ function Home() {
   }, []);
 
   return (
+    <>
+    <CommonNav />
     <div className="container home">
-      <CommonNav />
       <div className="row justify-content-center">
         <div className="col-3">
           <Card style={{ cursor: "pointer" }} onClick={houseFunc}>
@@ -300,6 +301,7 @@ function Home() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

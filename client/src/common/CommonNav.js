@@ -23,20 +23,25 @@ function CommonNav() {
   };
 
   return (
+    <>
     <Navbar
-      className="navbar-custom"
       variant="dark"
-      fixed="top"
       expand="lg"
-      collapseOnSelect
     >
-      <Navbar.Toggle />
       <Card.Img
               style={{ width: "5rem", height: "2rem" }}
               variant="top"
               src={logo}
             />
 
+    </Navbar>
+    <Navbar
+      className="navbar-custom"
+      variant="dark"
+      expand="lg"
+      collapseOnSelect
+    >
+      <Navbar.Toggle />
       <Navbar.Collapse>
         <Nav>
           <Nav.Link href="/home">Home</Nav.Link>
@@ -49,6 +54,7 @@ function CommonNav() {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
+    </>
   );
 }
 
