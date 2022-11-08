@@ -12,9 +12,9 @@ function Login() {
   const serverDomain   = useGlobalConfigContext()["serverDomain"];
   const history = useHistory();
   const axios = require("axios").default;
-  const [username, setUername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [messageConfirm, setmessageConfirm] = useState("");
+  const [messageConfirm, setMessageConfirm] = useState("");
 
   const [loginStatus, setLoginStatus] = useState("");
   const [logIn, setLogin] = useState(false);
@@ -37,15 +37,15 @@ function Login() {
 
   const login = () => {
     Axios.post( serverDomain+"/login", {
-      username: username,
+      email: email,
       password: password,
     }).then((response) => {
       if (response.data.message) {
         setLoginStatus(response.data.message);
         setLogin(false);
-        setmessageConfirm("Invalid username and/or password!");
+        setMessageConfirm("Invalid email and/or password!");
       } else {
-        setLoginStatus(response.data[0].username);
+        setLoginStatus(response.data[0].email);
         setLogin(true);
         console.log("FINISHED");
         history.push("/home");
@@ -73,7 +73,7 @@ function Login() {
         expand="lg"
         collapseOnSelect
       >
-        <Navbar.Brand>Reentry and Corrections</Navbar.Brand>
+        <Navbar.Brand>GetLooked</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav>
@@ -89,12 +89,12 @@ function Login() {
           className="mb-3"
           controlId="formBasicEmail"
         >
-          <Form.Label>Username</Form.Label>
+          <Form.Label>Email</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Username"
+            placeholder="Email"
             onChange={(e) => {
-              setUername(e.target.value);
+              setEmail(e.target.value);
             }}
           />
         </Form.Group>

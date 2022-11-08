@@ -9,21 +9,10 @@ import About from "./components/About";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Axios from "axios";
 import Housing from "./components/Housing";
-import BasicNeeds from "./components/BasicNeeds";
-import Employment from "./components/Employment";
 import Favorites from "./components/Favorites";
 import EditProfile from "./components/EditProfile";
-import Health from "./components/Health";
-import Hotline from "./components/Hotline";
-import Information from "./components/Information";
-import MentalHealth from "./components/MentalHealth";
-import SubstanceUse from "./components/SubstanceUse";
-import Universal from "./components/Universal";
 import MyPlans from "./components/MyPlans";
-import EmploymentPlan from "./components/EmploymentPlan";
 import HousingPlan from "./components/HousingPlan";
-import MentalHealthPlan from "./components/MentalHealthPlan";
-import SubstanceUsePlan from "./components/SubstanceUsePlan";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
@@ -62,22 +51,10 @@ function App(){
         <Route path="/home" component={Home}/>
         <Route path="/profile" component={Profile}/>
         <Route path="/housing" component={Housing}/>
-        <Route path="/basicNeeds" component={BasicNeeds}/>
-        <Route path="/employment" component={Employment}/>
         <Route path="/favorites" component={Favorites}/>
         <Route path="/editProfile" component={EditProfile}/>
-        <Route path="/health" component={Health}/>
-        <Route path="/hotline" component={Hotline}/>
-        <Route path="/information" component={Information}/>
-        <Route path="/mentalHealth" component={MentalHealth}/>
-        <Route path="/substanceUse" component={SubstanceUse}/>
-        <Route path="/universal" component={Universal}/>
         <Route path="/myPlans" component={MyPlans}/>
         <Route path="/housingPlan" component={HousingPlan}/>
-        <Route path="/employmentPlan" component={EmploymentPlan}/>
-        <Route path="/mentalHealthPlan" component={MentalHealthPlan}/>
-        <Route path="/substanceUsePlan" component={SubstanceUsePlan}/>
-        
       </div>
     </Router>
     </GlobalConfigContext.Provider>

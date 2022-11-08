@@ -5,11 +5,11 @@ let router = express.Router();
 const saltRounds = 10;
 
 router.post("/", (req, res) => {
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
   db.query(
-    "SELECT * FROM users WHERE username = ?;",
-    username,
+    "SELECT * FROM user_account WHERE email = ?;",
+    email,
     (err, result) => {
       if (err) {
         res.send({ err: err });

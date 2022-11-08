@@ -110,55 +110,8 @@ function MyPlans() {
             </Card.Body>
           </Card>
         </div>
-        <div className="col-4">
-          <Card style={{ cursor: "pointer" }} onClick={employFunc}>
-            <Card.Img
-              style={{ width: "100%", height: "10rem" }}
-              variant="top"
-              src={employment}
-            />
-            <Card.Body>
-              <Card.Title>Employment Plan</Card.Title>
-              <Button className="fullWidth" variant="primary">
-                Continue
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
       </div>
 
-      <div className="row justify-content-center MyPlanCustom">
-        <div className="col-4">
-          <Card style={{ cursor: "pointer" }} onClick={mentalHealthFunc}>
-            <Card.Img
-              style={{ width: "100%", height: "10rem" }}
-              variant="top"
-              src={mentalHealth}
-            />
-            <Card.Body>
-              <Card.Title>Mental Health Organizations</Card.Title>
-              <Button className="fullWidth" variant="primary">
-                Continue
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-4">
-          <Card style={{ cursor: "pointer" }} onClick={substanceUseFunc}>
-            <Card.Img
-              style={{ width: "100%", height: "10rem" }}
-              variant="top"
-              src={substanceUse}
-            />
-            <Card.Body>
-              <Card.Title>Substance Use Services</Card.Title>
-              <Button className="fullWidth" variant="primary">
-                Continue
-              </Button>
-            </Card.Body>
-          </Card>
-        </div>
-      </div>
     </div>
   );
 }

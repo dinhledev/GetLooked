@@ -30,7 +30,7 @@ function CommonNav() {
     document.title = "Home";  
     Axios.get(serverDomain+"/login").then((response) => {
       if (response.data.loggedIn == true) {
-        setLoginUser(response.data.user[0].username);
+        setLoginUser(response.data.user[0].email);
         setData(response.data);
       } 
     });
