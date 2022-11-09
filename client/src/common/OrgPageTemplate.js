@@ -177,6 +177,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
   return (
     <>
     <CommonNav />
+    {/* BEGIN edit layout here */}
     <div className="container home">
       <CommonOrgPageHeader tittlePage= {tittlePage}/>
       <div className="org_filter">
@@ -276,6 +277,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
             </Pagination>
         </div>
     </div>
+    {/* END edit layout here */}
     </>
   );
 }

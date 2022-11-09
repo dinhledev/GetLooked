@@ -48,6 +48,7 @@ function Home() {
   return (
     <>
       <CommonNav />
+      {/* BEGIN edit layout here */}
       <div className="container home">
         <div class="p-5 text-center bg-image rounded-3 customerImage">
           <div class="mask maskCustom">
@@ -105,6 +106,7 @@ function Home() {
       <div class="mt-5 p-4 bg-dark text-white text-center">
         <p>GetLooked © 2022</p>
       </div>
+    {/* END edit layout here */}
     </>
   );
 }
