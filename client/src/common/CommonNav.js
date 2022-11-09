@@ -27,10 +27,9 @@ function CommonNav() {
   };
 
   useEffect(() => {
-    document.title = "Home";  
     Axios.get(serverDomain+"/login").then((response) => {
       if (response.data.loggedIn == true) {
-        setLoginUser(response.data.user[0].email);
+        setLoginUser(response.data.user[0].first_name);
         setData(response.data);
       } 
     });
@@ -50,11 +49,11 @@ function CommonNav() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/favorites">Athletes</Nav.Link>
-            <Nav.Link href="/profile">Coaches</Nav.Link>
-            <Nav.Link href="/myPlans">Schools</Nav.Link>
-            <Nav.Link href="/myPlans">About Us</Nav.Link>
-            <Nav.Link href="/myPlans">Contact</Nav.Link>
+            <Nav.Link href="/athletes">Athletes</Nav.Link>
+            <Nav.Link href="#">Coaches</Nav.Link>
+            <Nav.Link href="#">Schools</Nav.Link>
+            <Nav.Link href="#">About Us</Nav.Link>
+            <Nav.Link href="#">Contact</Nav.Link>
           </Nav>
           <Nav>
             <Nav.Link href="profile">Hi, {loggedInUser} </Nav.Link>

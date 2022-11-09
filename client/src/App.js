@@ -1,18 +1,19 @@
 import React, {useState, useEffect, useContext,createContext} from "react";
 import "./App.css";
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import Axios from "axios";
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import ForgotPassword from "./components/ForgotPassword";
 import Home from "./components/Home";
 import Profile from "./components/Profile";
 import About from "./components/About";
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import Axios from "axios";
 import Housing from "./components/Housing";
 import Favorites from "./components/Favorites";
 import EditProfile from "./components/EditProfile";
 import MyPlans from "./components/MyPlans";
 import HousingPlan from "./components/HousingPlan";
+import Athletes from "./components/Athletes";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHome } from '@fortawesome/free-solid-svg-icons'
@@ -55,6 +56,7 @@ function App(){
         <Route path="/editProfile" component={EditProfile}/>
         <Route path="/myPlans" component={MyPlans}/>
         <Route path="/housingPlan" component={HousingPlan}/>
+        <Route path="/athletes" component={Athletes}/>
       </div>
     </Router>
     </GlobalConfigContext.Provider>
