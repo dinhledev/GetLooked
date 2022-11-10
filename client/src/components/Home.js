@@ -41,6 +41,8 @@ function Home() {
       if (response.data.loggedIn == true) {
         setLoginUser(response.data.user[0].username);
         setData(response.data);
+      } else {
+        history.push("/login");
       }
     });
   }, []);
