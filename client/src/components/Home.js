@@ -57,7 +57,7 @@ function Home() {
               <div class="text-white">
                 <h1 class="mb-3">Get looked at by recruiters!</h1>
                 <h4 class="mb-3">
-                  Post your profes skills now to connect with coaches and scouts
+                  Post your professional skills now to connect with coaches and scouts
                 </h4>
                 <a
                   class="btn btn-outline-light btn-lg"
