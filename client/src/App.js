@@ -28,12 +28,9 @@ function App(){
   Axios.defaults.withCredentials = true;
 
   const globalConfig = {
-    //"serverDomain": "http://localhost:3001",
-    "serverDomain": "https://getlookedmysql.herokuapp.com",
-    "serverDomainWithDash": "https://getlookedmysql.herokuapp.com/"
+    "serverDomain": "http://localhost:3001",
+    "serverDomainWithDash": "http://localhost:3001/"
   }
-
- // https://getlookedmysql.herokuapp.com/
 
   useEffect(()=> {
     Axios.get(globalConfig["serverDomain"]+"/login").then((response) => {
