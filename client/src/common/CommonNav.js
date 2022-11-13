@@ -49,16 +49,17 @@ function CommonNav() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
-            <Nav.Link href="/athletes">Athletes</Nav.Link>
-            <Nav.Link href="#">Coaches</Nav.Link>
-            <Nav.Link href="#">Schools</Nav.Link>
+            {data ? <Nav.Link href="/athletes">Athletes</Nav.Link>:""}
+            {data ? <Nav.Link href="#">Coaches</Nav.Link>:""}
+            {/* <Nav.Link href="#">Schools</Nav.Link> */}
             <Nav.Link href="#">About Us</Nav.Link>
             <Nav.Link href="#">Contact</Nav.Link>
           </Nav>
-          <Nav>
-            <Nav.Link href="profile">Hi, {loggedInUser} </Nav.Link>
-            <Nav.Link onClick={logoutUser}> Logout </Nav.Link>
-          </Nav>
+          {data ?      
+            <Nav>
+              <Nav.Link href="profile">Hi, {loggedInUser} </Nav.Link>
+              <Nav.Link onClick={logoutUser}> Logout </Nav.Link>
+            </Nav>:""}
         </Navbar.Collapse>
       </Container>
     </Navbar>

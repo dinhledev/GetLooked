@@ -7,6 +7,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Nav, Navbar, Form, Button } from "react-bootstrap";
 import { useHistory } from "react-router";
 import { useGlobalConfigContext } from "../App";
+import CommonNav from "../common/CommonNav";
 
 function Login() {
   const serverDomain   = useGlobalConfigContext()["serverDomain"];
@@ -64,24 +65,10 @@ function Login() {
   }, []);
 
   return (
+    <>
+    <CommonNav />
     <div className="container Login">
       <div className="signInHeader">Log In</div>
-      <Navbar
-        className = "navbar-custom"
-        variant="dark"
-        fixed="top"
-        expand="lg"
-        collapseOnSelect
-      >
-        <Navbar.Brand>GetLooked</Navbar.Brand>
-        <Navbar.Toggle />
-        <Navbar.Collapse>
-          <Nav>
-            <Nav.Link href="/about">About Us</Nav.Link>
-            <Nav.Link href="/register">Sign Up</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
       <Form>
       <Form.Label style={messageConfirmStyle}>{messageConfirm}</Form.Label>
         <Form.Group
@@ -132,6 +119,7 @@ function Login() {
         </div>
       </Form>
     </div>
+    </>
   );
 }
 
