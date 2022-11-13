@@ -57,49 +57,48 @@ function Home() {
               <div class="text-white">
                 <h1 class="mb-3">Get looked at by recruiters!</h1>
                 <h4 class="mb-3">
-                  register now to connect with coaches and scouts
+                  Post your profes skills now to connect with coaches and scouts
                 </h4>
                 <a
                   class="btn btn-outline-light btn-lg"
                   href="register"
                   role="button"
                 >
-                  Sign Up
+                  Post
                 </a>
               </div>
             </div>
           </div>
         </div>
-
         <div className="row">
           <div className="col-sm-4">
             <h3>News</h3>
+            <h5>
+            Schwarz Delivers Division IV County Crown To Shoreham-Wading River
+            </h5>
             <p>
-              Test Lorem ipsum dolor sit amet, consectetur adipisicing elit...
-            </p>
-            <p>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              laboris...
+            Call him Johnny on the spot. The Shoreham-Wading River sophomore was in the right place at the right time up and down the field during 
+            the No. 2 Wildcats’ upset win, 28-21, over previously undefeated...
             </p>
           </div>
           <div className="col-sm-4">
             <h3>Featured</h3>
+            <h5>
+            The Murtha Show: Sayville QB Rushes for 2 TDs, Throws One in Playoff Win
+            </h5>
             <p>
-              Test Lorem ipsum dolor sit amet, consectetur adipisicing elit...
-            </p>
-            <p>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              laboris...
+            Brock Murtha is a standout shortstop, but he’s also a quality quarterback. 
+            The junior field general rushed for two touchdowns, and threw for another, in Sayville’s 28-14 first-round Division III playoff win over No. 6...
             </p>
           </div>
           <div class="col-sm-4">
             <h3>Schools</h3>
+            <h5>
+            Your passion can be your profession
+            </h5>
             <p>
-              Test Lorem ipsum dolor sit amet, consectetur adipisicing elit...
-            </p>
-            <p>
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco
-              laboris...
+            In the School of Sport, Recreation, and Tourism Management, we help you turn your passion into professional success.
+            You will learn in small classes from industry-leading experts. You will gain real-world experience through internships and fieldwork in a major metropolitan are...
             </p>
           </div>
         </div>
