@@ -253,6 +253,7 @@ function Registration() {
                 <Form.Label>About</Form.Label>
                 <Form.Control
                   type="text"
+                  as="textarea"
                   placeholder="About"
                   onChange={(e) => {
                     setAboutReg(e.target.value);

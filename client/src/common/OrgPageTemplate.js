@@ -10,6 +10,7 @@ import {
   NavItem,
   Card,
   Button,
+  Form
 } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { useHistory } from "react-router";
@@ -46,7 +47,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
   // const for paging
   const [offset, setOffset] = useState(0);
   const [orgData, setOrgData] = useState([]);
-  const [perPage] = useState(2);
+  const [perPage] = useState(4);
   const [pageCount, setPageCount] = useState(0);
   const [selectedPage, setselectedPage] = useState(1);
   const [totalOrg, setTotalOrg] = useState(0);
@@ -186,7 +187,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
             className="fullWidth"
             variant="primary"
           >
-            Filter Organizations
+            Filter Athletes
           </Button>
         </main>
 
@@ -206,7 +207,33 @@ function OrgPageTemplate({pageName,tittlePage}) {
                 btnFilterCustom: checkHousingMenKeyWord()
               })}
             >
-              Men
+              Male
+            </Button>
+            <Button
+              bsPrefix="super-btn"
+              value={menChecked}
+              onClick={(e) => {
+                handleFilterHousingMenKeyWord();
+              }}
+              className={classNames({
+                keyWords: true,
+                btnFilterCustom: checkHousingMenKeyWord()
+              })}
+            >
+              Female
+            </Button>
+            <Button
+              bsPrefix="super-btn"
+              value={menChecked}
+              onClick={(e) => {
+                handleFilterHousingMenKeyWord();
+              }}
+              className={classNames({
+                keyWords: true,
+                btnFilterCustom: checkHousingMenKeyWord()
+              })}
+            >
+              &gt; 1 YOE
             </Button>
 
           </Popup>          
@@ -216,7 +243,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
       {totalOrg > 0 ? (
         <div className="homeDisplay">
           <div className="disp1">
-            <h5>Total Organizations: {totalOrg}</h5>
+            <h5>Total Athletes: {totalOrg}</h5>
             {orgData.map(function(org) {
               if (loggedInUser.length == 0) {
                 history.push("/login");
@@ -236,9 +263,58 @@ function OrgPageTemplate({pageName,tittlePage}) {
             })}
           </div>
           <div className="disp2">
-            <div className="section">
-              <div className="secttl">Organization</div>
-              <div className="secsubttl">{unit_org.email}</div>
+            <div className="row">
+              <div className="col-3">
+                <Card style={{ cursor: "pointer" }}>
+                  <Card.Img
+                    variant="top"
+                    src={require('../images/slush.jpg')}
+                  />
+                  <Card.Body>
+                    <Card.Title>{unit_org.first_name} {unit_org.last_name}</Card.Title>
+                    <Card.Text>
+                      {unit_org.email}
+                    </Card.Text>
+                    <Button className="fullWidth" variant="primary">
+                      Contact me
+                    </Button>
+                  </Card.Body>
+                </Card>
+              </div>
+              <div className="col">
+                <Card style={{ cursor: "pointer" }}>
+                  <Card.Body>
+                    <Card.Title>About me</Card.Title>
+                    <Card.Text>
+                    {unit_org.about}
+                    </Card.Text>
+                    <Card.Title>DOB</Card.Title>
+                    <Card.Text>
+                    {unit_org.date_of_birth}
+                    </Card.Text>
+                    <Card.Title>Height</Card.Title>
+                    <Card.Text>
+                    {unit_org.height}
+                    </Card.Text>
+                    <Card.Title>Weight</Card.Title>
+                    <Card.Text>
+                    {unit_org.weight}
+                    </Card.Text>
+                    <Card.Title>Sport</Card.Title>
+                    <Card.Text>
+                    {unit_org.sport}
+                    </Card.Text>
+                    <Card.Title>Position</Card.Title>
+                    <Card.Text>
+                    {unit_org.position}
+                    </Card.Text>
+                    <Card.Title>Organization Name</Card.Title>
+                    <Card.Text>
+                    {unit_org.org_name}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
