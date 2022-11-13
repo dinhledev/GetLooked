@@ -50,16 +50,16 @@ function CommonNav() {
           <Nav className="me-auto">
             <Nav.Link href="/home">Home</Nav.Link>
             {data ? <Nav.Link href="/athletes">Athletes</Nav.Link>:""}
-            {data ? <Nav.Link href="#">Coaches</Nav.Link>:""}
+            {data ? <Nav.Link href="/athletes">Coaches</Nav.Link>:""}
             {/* <Nav.Link href="#">Schools</Nav.Link> */}
-            <Nav.Link href="#">About Us</Nav.Link>
-            <Nav.Link href="#">Contact</Nav.Link>
+            <Nav.Link href="/about">About Us</Nav.Link>
+            {/* <Nav.Link href="#">Contact</Nav.Link> */}
           </Nav>
           {data ?      
             <Nav>
               <Nav.Link href="profile">Hi, {loggedInUser} </Nav.Link>
               <Nav.Link onClick={logoutUser}> Logout </Nav.Link>
-            </Nav>:""}
+            </Nav>:  <Nav.Link href="/login">Login</Nav.Link>}
         </Navbar.Collapse>
       </Container>
     </Navbar>
