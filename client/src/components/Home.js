@@ -15,7 +15,6 @@ import {
 import { Redirect } from "react-router";
 import { useHistory } from "react-router";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import housing from "../images/housing.jpg";
 import classNames from "classnames";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark as fasB } from "@fortawesome/free-solid-svg-icons";

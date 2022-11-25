@@ -25,26 +25,18 @@ app.use(session({
 }));
 
 // Importing all backend routes
-const profile = require("./routes/profile")
 const home = require("./routes/home")
-const housing = require("./routes/housing")
 const athletes = require("./routes/athletes")
-const forgotPassword = require("./routes/forgotPassword")
 const logout = require("./routes/logout")
 const login = require("./routes/login")
 const register = require("./routes/register")
-const favorites = require("./routes/favorites")
 
 // Using routes on api call
-app.use("/profile", profile)
 app.use("/home", home)
-app.use("/housing", housing)
 app.use("/athletes", athletes)
-app.use("/forgotPassword", forgotPassword)
 app.use("/logout", logout)
 app.use("/login", login)
 app.use("/register", register)
-app.use("/favorites", favorites)
 app.use("/", home)
 
 // listenting to port
