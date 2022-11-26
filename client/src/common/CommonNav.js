@@ -23,11 +23,11 @@ function CommonNav() {
   const logoutUser = () => {
     Axios.post( serverDomain+"/logout", {}, { withCredentials: "true" });
     history.push("/login");
-    window.location.reload();
   };
 
   useEffect(() => {
     Axios.get(serverDomain+"/login").then((response) => {
+      console.log(response)
       if (response.data.loggedIn == true) {
         setLoginUser(response.data.user[0].first_name);
         setData(response.data);

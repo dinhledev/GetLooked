@@ -46,11 +46,10 @@ function Login() {
         setLogin(false);
         setMessageConfirm("Invalid email and/or password!");
       } else {
-        setLoginStatus(response.data[0].email);
+        setLoginStatus(response.data[0].first_name);
         setLogin(true);
         console.log("FINISHED");
         history.push("/home");
-        window.location.reload();
       }
     });
   };

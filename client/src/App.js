@@ -21,7 +21,7 @@ function App(){
   Axios.defaults.withCredentials = true;
 
   const globalConfig = {
-    "serverDomain": "http://localhost:3001",
+    "serverDomain": "https://server.getlooked.com",
     "serverDomainWithDash": "http://localhost:3001/"
   }
 
