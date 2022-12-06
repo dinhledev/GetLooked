@@ -128,6 +128,9 @@ function OrgPageTemplate({pageName,tittlePage}) {
     return id === active;
   };
 
+  const renderEmailLink = (email) => {
+    return "mailto:" + email;;
+  };
   // check filter or not 
   const getInit = (accountId) => {
     if (over6FeetTallChecked == false && selectedSportChecked == false && selectedPositionChecked == false) {
@@ -285,7 +288,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
           <div className="disp2">
             <div className="row">
               <div className="col-3">
-                <Card style={{ cursor: "pointer" }}>
+                <Card>
                   <Card.Img
                     variant="top"
                     src={require('../images/slush.jpg')}
@@ -295,7 +298,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
                     <Card.Text>
                       {unit_org.email}
                     </Card.Text>
-                    <Button className="fullWidth" variant="primary">
+                    <Button href = {renderEmailLink(unit_org.email)} className="fullWidth" variant="primary">
                       Contact me
                     </Button>
                   </Card.Body>
