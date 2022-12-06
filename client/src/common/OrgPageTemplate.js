@@ -167,10 +167,10 @@ function OrgPageTemplate({pageName,tittlePage}) {
         keyWordsSQL += " AND height > 6.0";
       }
       if(listKeyWord.get("sport") != null) {
-        keyWordsSQL += " AND sport like '%' 'Football' '%'";
+        keyWordsSQL += " AND sport like '%' '" + listKeyWord.get("sport") +"' '%'";
       }
       if(listKeyWord.get("position") != null) {
-        keyWordsSQL += " AND position like '%' 'Middle' '%'";
+        keyWordsSQL += " AND position like '%' '" + listKeyWord.get("position") +"' '%'";
       }
 
 
@@ -208,7 +208,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
         history.push("/login");
       }
     });
-  }, [offset,checked,over6FeetTallChecked,selectedSportChecked,selectedPositionChecked]);
+  }, [offset,checked,over6FeetTallChecked,selectedSport,selectedPosition]);
 
   return (
     <>
