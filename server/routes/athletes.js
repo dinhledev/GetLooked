@@ -31,12 +31,8 @@ router.get("/getAll", (req, res) => {
 });
 
 router.post("/getAllHasID", (req, res) => {
-  let keyWords = req.body.keyWords;
-  let keyWordsSQL = "";
-  for (let index = 0; index < keyWords.length; index++) {
-    keyWordsSQL += " AND criteria like '%" + keyWords[index] +"%'";
-  }
-  const sql = "SELECT * FROM reentry_organizations WHERE type='Housing' " + keyWordsSQL +";";
+  let keyWordsSQL = req.body.keyWords;
+  const sql = "SELECT * FROM user_account WHERE is_org='0'" + keyWordsSQL +";";
   console.log(sql)
   db.query(
     sql,
@@ -51,16 +47,11 @@ router.post("/getAllHasID", (req, res) => {
 });
 
 router.post("/hasID", (req, res) => {
-  let keyWords = req.body.keyWords;
-  let keyWordsSQL = "";
-  for (let index = 0; index < keyWords.length; index++) {
-    keyWordsSQL += " AND criteria like '%" + keyWords[index] +"%'";
-  }
+  let keyWordsSQL = req.body.keyWords;
   const offset = req.body.offset;
   const perPage = req.body.perPage;
 
-  const sql = "SELECT * FROM reentry_organizations WHERE type='Housing'" + keyWordsSQL+ " ORDER BY org_id ASC LIMIT " + offset + "," + perPage + ";"
-  console.log(sql)
+  const sql = "SELECT * FROM user_account WHERE is_org='0'" + keyWordsSQL+ " ORDER BY account_id ASC LIMIT " + offset + "," + perPage + ";"
   db.query(
     sql,
     (err, result) => {

@@ -10,7 +10,8 @@ import {
   NavItem,
   Card,
   Button,
-  Form
+  Form,
+  Container
 } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { useHistory } from "react-router";
@@ -24,6 +25,7 @@ import Pagination from "react-bootstrap/Pagination";
 import CommonNav from "../common/CommonNav";
 import CommonOrgPageHeader from "../common/CommonOrgPageHeader";
 import { useGlobalConfigContext } from "../App";
+import { Dropdown } from "bootstrap";
 
 function OrgPageTemplate({pageName,tittlePage}) {
   const serverDomain   = useGlobalConfigContext()["serverDomain"];
@@ -42,7 +44,11 @@ function OrgPageTemplate({pageName,tittlePage}) {
   
   const [keyWords, setKeyWords] = useState([]);
   // Keywords for housing page
-  const [menChecked, setMenChecked] = useState(false);
+  const [over6FeetTallChecked, setOver6FeetTallChecked] = useState(false);
+  const [selectedSportChecked, setSelectedSportChecked] = useState(false);
+  const [selectedSport, setSelectedSport] = useState("Sport");
+  const [selectedPositionChecked, setSelectedPositionChecked] = useState(false);
+  const [selectedPosition, setSelectedPosition] = useState("Position");
 
   // const for paging
   const [offset, setOffset] = useState(0);
@@ -72,35 +78,43 @@ function OrgPageTemplate({pageName,tittlePage}) {
     setOffset(0);
     setselectedPage(1);
   };
-
-  // handle filter for other pages
-  const handleChangePoupFilterByPhotoID = () => {
-    setChecked(!checked);
-    setOffset(0)
-    setselectedPage(1);
-  };
-  const checkPhotoIDKeyWord = () => {
-    return checked;
-  };
-
-  // BEGIN handle filter for housing page
-  const handleFilterHousingMenKeyWord = () => {
-    setMenChecked(!menChecked)
+  const handleFilterOver6FeetTall = () => {
+    setOver6FeetTallChecked(!over6FeetTallChecked)
     setOffset(0)
     setselectedPage(1);
   };
   const checkHousingMenKeyWord = () => {
-    return menChecked;
+    return over6FeetTallChecked;
   };
-  // END handle filter for housing page
- 
-  const Checkbox = ({ label, value, onChange }) => {
-    return (
-      <label>
-        <input type="checkbox" checked={value} onChange={onChange} />
-        {label}
-      </label>
-    );
+
+  const handleFilterSelectedSport = (value) => {
+    setOffset(0)
+    setselectedPage(1);
+    if(value == null || value == "") {
+      setSelectedSportChecked(false)
+      setSelectedSport("Sport");
+    } else {
+      setSelectedSportChecked(true)
+      setSelectedSport(value);
+    }
+  };
+  const checkSelectedSport = () => {
+    return selectedSportChecked;
+  };
+
+  const handleFilterSelectedPosition = (value) => {
+    setOffset(0)
+    setselectedPage(1);
+    if(value == null || value == "") {
+      setSelectedPositionChecked(false)
+      setSelectedPosition("Position");
+    } else {
+      setSelectedPositionChecked(true)
+      setSelectedPosition(value);
+    }
+  };
+  const checkSelectedPosition = () => {
+    return selectedPositionChecked;
   };
 
   const getOrganizations = (id) => {
@@ -116,7 +130,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
 
   // check filter or not 
   const getInit = (accountId) => {
-    if (menChecked ==false && checked == false) {
+    if (over6FeetTallChecked == false && selectedSportChecked == false && selectedPositionChecked == false) {
       Axios.get( serverDomain+"/"+ pageName +"/getAll").then((response) => {
         setTotalOrg(response.data.length);
         setPageCount(Math.ceil(response.data.length / perPage));
@@ -134,13 +148,31 @@ function OrgPageTemplate({pageName,tittlePage}) {
         }
       });
     } else {
-      let listKeyWord = [];
-      // housing
-      if(menChecked) {
-        listKeyWord.push("Men");
+
+      var listKeyWord = new Map();
+      if(over6FeetTallChecked) {
+        listKeyWord.set("height", "6");
       }
+      if(selectedSportChecked) {
+        listKeyWord.set("sport", selectedSport);
+      }
+      if(selectedPositionChecked) {
+        listKeyWord.set("position", selectedPosition);
+      }
+      let keyWordsSQL = "";
+      if(listKeyWord.get("height") != null) {
+        keyWordsSQL += " AND height > 6.0";
+      }
+      if(listKeyWord.get("sport") != null) {
+        keyWordsSQL += " AND sport like '%' 'Football' '%'";
+      }
+      if(listKeyWord.get("position") != null) {
+        keyWordsSQL += " AND position like '%' 'Middle' '%'";
+      }
+
+
       Axios.post( serverDomain+"/"+ pageName +"/getAllHasID",{
-        keyWords : listKeyWord
+        keyWords : keyWordsSQL
       }).then(
         (response) => {
           setTotalOrg(response.data.length);
@@ -148,14 +180,14 @@ function OrgPageTemplate({pageName,tittlePage}) {
         }
       );
       Axios.post( serverDomain+"/"+ pageName +"/hasID", {
-        keyWords : listKeyWord,
+        keyWords : keyWordsSQL,
         offset: offset,
         perPage: perPage,
       }).then((response) => {
         if(response.data.length > 0) {
           setOrgData(response.data);
           if (accountId <= 0) {
-            accountId = response.data[0].org_id;
+            accountId = response.data[0].account_id;
           }
           getOrganizations(accountId);
         }
@@ -173,73 +205,61 @@ function OrgPageTemplate({pageName,tittlePage}) {
         history.push("/login");
       }
     });
-  }, [offset,checked,menChecked]);
+  }, [offset,checked,over6FeetTallChecked,selectedSportChecked,selectedPositionChecked]);
 
   return (
     <>
     <CommonNav />
     <div className="container home">
       <CommonOrgPageHeader tittlePage= {tittlePage}/>
-      <div className="org_filter">
-        <main>
-          <Button
-            onClick={() => setButtonPoup(true)}
-            className="fullWidth"
-            variant="primary"
-          >
-            Filter Athletes
-          </Button>
-        </main>
-
-        {/* BEGIN housing page  */}
         {pageName == "athletes" &&
-          <Popup trigger={buttonPoup} setTrigger={setButtonPoup}>
-            {/* <span>Filter by: </span> */}
-            <br></br>
-            <Button
-              bsPrefix="super-btn"
-              value={menChecked}
-              onClick={(e) => {
-                handleFilterHousingMenKeyWord();
-              }}
-              className={classNames({
-                keyWords: true,
-                btnFilterCustom: checkHousingMenKeyWord()
-              })}
-            >
-              Male
-            </Button>
-            <Button
-              bsPrefix="super-btn"
-              value={menChecked}
-              onClick={(e) => {
-                handleFilterHousingMenKeyWord();
-              }}
-              className={classNames({
-                keyWords: true,
-                btnFilterCustom: checkHousingMenKeyWord()
-              })}
-            >
-              Female
-            </Button>
-            <Button
-              bsPrefix="super-btn"
-              value={menChecked}
-              onClick={(e) => {
-                handleFilterHousingMenKeyWord();
-              }}
-              className={classNames({
-                keyWords: true,
-                btnFilterCustom: checkHousingMenKeyWord()
-              })}
-            >
-              &gt; 1 YOE
-            </Button>
-
-          </Popup>          
+            <Navbar bg="light" expand="lg">
+              <Container>
+                <Navbar.Brand variant="outline-info">Filter Athletes</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                  <Nav className="me-auto">
+                    <Button
+                      bsPrefix="super-btn"
+                      value={over6FeetTallChecked}
+                      onClick={(e) => {
+                        handleFilterOver6FeetTall();
+                      }}
+                      className={classNames({
+                        keyWords: true,
+                        btnFilterCustom: checkHousingMenKeyWord()
+                      })}
+                    >
+                      Over 6 Feet Tall
+                    </Button>
+                    <NavDropdown  title={selectedSport}
+                                  className={classNames({
+                                  keyWords: true,
+                                  btn: true,
+                                  btnFilterCustom: checkSelectedSport()
+                      })}>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedSport("")}>Sport</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedSport("Football")}> Football</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedSport("Basketball")}>Basketball</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedSport("Soccer")}>Soccer</NavDropdown.Item>
+                    </NavDropdown>
+                    <NavDropdown  title={selectedPosition}
+                                  className={classNames({
+                                  keyWords: true,
+                                  btn: true,
+                                  btnFilterCustom: checkSelectedPosition()
+                      })}>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedPosition("")}>Position</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedPosition("Middle")}> Middle</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedPosition("Forward")}>Forward</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedPosition("Gaurd")}>Gaurd</NavDropdown.Item>
+                      <NavDropdown.Item onClick={(e) =>handleFilterSelectedPosition("Freestyle")}>Freestyle</NavDropdown.Item>
+                    </NavDropdown>
+                  </Nav>
+                </Navbar.Collapse>
+              </Container>
+            </Navbar>    
         } 
-        {/* END housing page  */}
-      </div>
       {totalOrg > 0 ? (
         <div className="homeDisplay">
           <div className="disp1">
