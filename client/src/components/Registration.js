@@ -7,9 +7,16 @@ import { useHistory } from "react-router";
 import Select from "../common/Dropdown";
 import { useGlobalConfigContext } from "../App";
 import CommonNav from "../common/CommonNav";
+import AWS from 'aws-sdk'
 
 function Registration() {
   const serverDomain = useGlobalConfigContext()["serverDomain"];
+  const S3_BUCKET = useGlobalConfigContext()["s3BucketImageName"]
+  const REGION = useGlobalConfigContext()["s3BucketRegion"]
+  AWS.config.update({
+      accessKeyId: useGlobalConfigContext()["accessKeyId"],
+      secretAccessKey: 'IYuxqjpVnpbLHDDIH8XdB91a5YocdDNlHYe3apj5'
+  })
   const history = useHistory();
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
@@ -27,9 +34,23 @@ function Registration() {
   const [cityReg, setCityReg] = useState("");
   const [stateReg, setStateReg] = useState("");
   const [isOrgReg, setIsOrgReg] = useState(0);
+
   const [accountPicReg, setAccountPicReg] = useState("");
+  const [progress , setProgress] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleFileInput = (e) => {
+      setSelectedFile(e.target.files[0]);
+      setAccountPicReg(e.target.files[0].name);
+  }
+
   const [passMatch, setPassMatch] = useState("");
   const [userThere, setUserThere] = useState("");
+
+
+  const myBucket = new AWS.S3({
+      params: { Bucket: S3_BUCKET},
+      region: REGION,
+  })
 
   const textAlign = {
     textAlign: "left",
@@ -43,8 +64,25 @@ function Registration() {
   };
 
   Axios.defaults.withCredentials = true;
+  const uploadFile = (file) => {
 
-  const register = () => {
+      const params = {
+          ACL: 'public-read',
+          Body: file,
+          Bucket: S3_BUCKET,
+          Key: file.name
+      };
+
+      myBucket.putObject(params)
+          .on('httpUploadProgress', (evt) => {
+              setProgress(Math.round((evt.loaded / evt.total) * 100))
+          })
+          .send((err) => {
+              if (err) console.log(err)
+          })
+  }
+
+  const register = (selectedFile) => {
     if (passwordReg != confirmPasswordReg) {
       setPassMatch("Passwords do not match!");
       return <h4 style={{ color: "red" }}>Passwords do not match</h4>;
@@ -74,6 +112,7 @@ function Registration() {
       }).then((response) => {
         // insert file to image folder here
         console.log("User Registered: ", response);
+        uploadFile(selectedFile);
         history.push("/login");
       });
     }
@@ -208,9 +247,7 @@ function Registration() {
                 <Form.Label>Upload your picture</Form.Label>
                 <Form.Control
                   type="file"
-                  onChange={(e) => {
-                    setAccountPicReg(e.target.files[0].name);
-                  }}
+                  onChange={handleFileInput}
                 />
               </Form.Group>
             </div>
@@ -336,7 +373,7 @@ function Registration() {
               </Form.Group>
             </div>
           </div>
-          <Button className="fullWidth" variant="primary" onClick={register}>
+          <Button className="fullWidth" variant="primary"  onClick={() => register(selectedFile)}>
             Sign Up
           </Button>
           <div style={signUp}>

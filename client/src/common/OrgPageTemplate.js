@@ -29,6 +29,7 @@ import { Dropdown } from "bootstrap";
 
 function OrgPageTemplate({pageName,tittlePage}) {
   const serverDomain   = useGlobalConfigContext()["serverDomain"];
+  const S3_BUCKET_HTTP_DASH = useGlobalConfigContext()["s3BucketImageNameHttpWithDash"]
   const history = useHistory();
   const [loggedInUser, setLoginUser] = useState("");
   const [data, setData] = useState("");
@@ -130,6 +131,9 @@ function OrgPageTemplate({pageName,tittlePage}) {
 
   const renderEmailLink = (email) => {
     return "mailto:" + email;;
+  };
+  const renderImageS3Link = (imageNameDB) => {
+    return S3_BUCKET_HTTP_DASH + imageNameDB;;
   };
   // check filter or not 
   const getInit = (accountId) => {
@@ -291,7 +295,7 @@ function OrgPageTemplate({pageName,tittlePage}) {
                 <Card>
                   <Card.Img
                     variant="top"
-                    src={require('../images/slush.jpg')}
+                    src={renderImageS3Link(unit_org.acc_pic)}
                   />
                   <Card.Body>
                     <Card.Title>{unit_org.first_name} {unit_org.last_name}</Card.Title>

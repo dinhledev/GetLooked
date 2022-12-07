@@ -29,7 +29,12 @@ function App(){
 
   const globalConfig = {
     "serverDomain": "http://localhost:3001",
-    "serverDomainWithDash": "http://localhost:3001/"
+    "serverDomainWithDash": "http://localhost:3001/",
+    "s3BucketImageName": "getlooked.com.images",
+    "s3BucketImageNameHttpWithDash": "https://s3.amazonaws.com/getlooked.com.images/",
+    "s3BucketRegion": "us-east-1",
+    "accessKeyId": "us-AKIAZSW2QC2UBDTISUVY-1",
+    "secretAccessKey": "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"
   }
 
   useEffect(()=> {
