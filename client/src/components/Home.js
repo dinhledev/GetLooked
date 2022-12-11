@@ -11,6 +11,8 @@ import {
   NavItem,
   Card,
   Button,
+  Modal,
+  Form
 } from "react-bootstrap";
 import { Redirect } from "react-router";
 import { useHistory } from "react-router";
@@ -33,6 +35,20 @@ function Home() {
   ) || [, null])[1];
   Axios.defaults.withCredentials = true;
   const [active, setActive] = useState(false);
+  const [videoLink, setVideoLink] = useState("");
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {setShow(true)};
+  const handleUpload = () => {
+    Axios.post(serverDomain + "/register/uploadVideo", {
+      videoLink: videoLink
+    }).then((response) => {
+      history.push("/athletes");
+    });
+
+    setShow(false);
+
+  };
 
   useEffect(() => {
     document.title = "Home";
@@ -60,8 +76,8 @@ function Home() {
                 </h4>
                 <a
                   class="btn btn-outline-light btn-lg"
-                  href="register"
                   role="button"
+                  onClick={handleShow}
                 >
                   Post
                 </a>
@@ -102,6 +118,32 @@ function Home() {
           </div>
         </div>
       </div>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Upload your Skills</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Youtube video link</Form.Label>
+              <Form.Control
+                type="input"
+                placeholder="youtube iframe url"
+                autoFocus
+                onChange= {(e) => setVideoLink(e.target.value)}
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleUpload}>
+            Upload
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <div class="mt-5 p-4 bg-dark text-white text-center">
         <p>GetLooked © 2022</p>
       </div>

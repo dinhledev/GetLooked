@@ -21,8 +21,14 @@ function App(){
   Axios.defaults.withCredentials = true;
 
   const globalConfig = {
-    "serverDomain": "https://server.getlooked.com",
-    "serverDomainWithDash": "http://localhost:3001/"
+
+    // "serverDomain": "https://server.getlooked.com",
+    // "serverDomainWithDash": "http://localhost:3001/"
+
+    "serverDomain": "http://localhost:3001",
+    "serverDomainWithDash": "http://localhost:3001/",
+    "s3BucketImageNameHttpWithDash": "https://s3.amazonaws.com/getlooked.com.images/",
+
   }
 
   useEffect(()=> {

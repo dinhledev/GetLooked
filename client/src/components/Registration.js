@@ -7,9 +7,11 @@ import { useHistory } from "react-router";
 import Select from "../common/Dropdown";
 import { useGlobalConfigContext } from "../App";
 import CommonNav from "../common/CommonNav";
+import AWS from 'aws-sdk'
 
 function Registration() {
   const serverDomain = useGlobalConfigContext()["serverDomain"];
+
   const history = useHistory();
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
@@ -19,18 +21,24 @@ function Registration() {
   const [dobReg, setDOBReg] = useState("");
   const [heightReg, setHeightReg] = useState(0);
   const [weightReg, setWeightReg] = useState(0);
-  const [sportReg, setSportReg] = useState("");
-  const [positionReg, setPositionReg] = useState("");
+  const [sportReg, setSportReg] = useState("Football");
+  const [positionReg, setPositionReg] = useState("Middle");
   const [aboutReg, setAboutReg] = useState("");
   const [orgNameReg, setOrgNameReg] = useState("");
   const [addressReg, setAddressReg] = useState("");
   const [cityReg, setCityReg] = useState("");
   const [stateReg, setStateReg] = useState("");
   const [isOrgReg, setIsOrgReg] = useState(0);
+
   const [accountPicReg, setAccountPicReg] = useState("");
+  const [progress , setProgress] = useState(0);
+  const [selectedFile, setSelectedFile] = useState(null);
+  const handleFileInput = (e) => {
+      setSelectedFile(e.target.files[0]);
+      setAccountPicReg(e.target.files[0].name);
+  }
   const [passMatch, setPassMatch] = useState("");
   const [userThere, setUserThere] = useState("");
-
   const textAlign = {
     textAlign: "left",
     color: "#000000",
@@ -43,8 +51,33 @@ function Registration() {
   };
 
   Axios.defaults.withCredentials = true;
+  const uploadFile = (file) => {
 
-  const register = () => {
+    Axios.post(serverDomain + "/register/generatePreSignedPutUrl", {
+      filename: file.name,
+      filetype: file.type
+    })
+    .then(function (result) {
+      var signedUrl = result.data.signedUrl;
+      
+      var options = {
+        headers: {
+          'Content-Type': file.type
+        }
+      };
+
+      return Axios.put(signedUrl, file, options);
+    })
+    .then(function (result) {
+      console.log(result);
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+
+  }
+
+  const register = (selectedFile) => {
     if (passwordReg != confirmPasswordReg) {
       setPassMatch("Passwords do not match!");
       return <h4 style={{ color: "red" }}>Passwords do not match</h4>;
@@ -74,6 +107,7 @@ function Registration() {
       }).then((response) => {
         // insert file to image folder here
         console.log("User Registered: ", response);
+        uploadFile(selectedFile);
         history.push("/login");
       });
     }
@@ -208,9 +242,7 @@ function Registration() {
                 <Form.Label>Upload your picture</Form.Label>
                 <Form.Control
                   type="file"
-                  onChange={(e) => {
-                    setAccountPicReg(e.target.files[0].name);
-                  }}
+                  onChange={handleFileInput}
                 />
               </Form.Group>
             </div>
@@ -221,13 +253,11 @@ function Registration() {
                 controlId="formBasicSport"
               >
                 <Form.Label>Sport</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Sport"
-                  onChange={(e) => {
-                    setSportReg(e.target.value);
-                  }}
-                />
+                <Form.Control as="select" onChange = {(e) => setSportReg(e.target.value)}>
+                  <option value="Football">Football</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Soccer">Soccer</option>
+                </Form.Control>
               </Form.Group>
 
               <Form.Group
@@ -236,13 +266,12 @@ function Registration() {
                 controlId="formBasicPosition"
               >
                 <Form.Label>Position</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Position"
-                  onChange={(e) => {
-                    setPositionReg(e.target.value);
-                  }}
-                />
+                <Form.Control as="select" onChange = {(e) => setPositionReg(e.target.value)}>
+                  <option value="Middle">Middle</option>
+                  <option value="Forward">Forward</option>
+                  <option value="Gaurd">Gaurd</option>
+                  <option value="Freestyle">Freestyle</option>
+                </Form.Control>
               </Form.Group>
 
               <Form.Group
@@ -336,7 +365,7 @@ function Registration() {
               </Form.Group>
             </div>
           </div>
-          <Button className="fullWidth" variant="primary" onClick={register}>
+          <Button className="fullWidth" variant="primary"  onClick={() => register(selectedFile)}>
             Sign Up
           </Button>
           <div style={signUp}>

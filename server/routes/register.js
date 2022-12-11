@@ -3,6 +3,32 @@ const express = require("express");
 const db = require("../db");
 let router = express.Router();
 const saltRounds = 10;
+const AWS = require("aws-sdk");
+AWS.config.update({
+  accessKeyId: 'us-AKIAZSW2QC2UBDTISUVY-1',
+  secretAccessKey: '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',
+})
+const S3_BUCKET ='getlooked.com.images';
+const REGION ='us-east-1';
+const URL_EXPIRATION_TIME = 60; // in seconds
+
+const myBucket = new AWS.S3({
+    params: { Bucket: S3_BUCKET},
+    region: REGION,
+})
+
+router.post("/generatePreSignedPutUrl", (req, res) => {
+  const fileName = req.body.fileName;
+  const fileType = req.body.fileType;
+  myBucket.getSignedUrl('putObject', {
+      Key: fileName,
+      ContentType: fileType,
+      Expires: URL_EXPIRATION_TIME
+  } , (err , url) => {
+      return url // API Response Here
+  });
+
+});
 
 router.post("/", (req, res) => {
   const email = req.body.email;
@@ -53,6 +79,24 @@ router.post("/", (req, res) => {
       }
     );
   });
+  res.send({ message: true });
+});
+
+
+router.post("/uploadVideo", (req, res) => {
+  const accountId = req.session.user[0].account_id;
+  const videoLink = req.body.videoLink;
+    let sql = "INSERT INTO user_post ( account_id, post_text) VALUES (?,?)"
+    db.query(
+      sql,
+      [
+        accountId,
+        videoLink,
+      ],
+      (err, result) => {
+        console.log(err);
+      }
+    );
   res.send({ message: true });
 });
 
