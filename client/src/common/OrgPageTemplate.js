@@ -103,6 +103,16 @@ function OrgPageTemplate({pageName,tittlePage}) {
     return selectedSportChecked;
   };
 
+  const getVideosByUserId = (userId) => {
+    Axios.get( serverDomain+"/"+ pageName +"/getVideoByAccountId/" + userId).then((response) => {
+      if(response.data.length > 0) {
+        return response.data;
+      }
+      return null;
+      
+    });
+  };
+
   const handleFilterSelectedPosition = (value) => {
     setOffset(0)
     setselectedPage(1);

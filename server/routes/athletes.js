@@ -79,4 +79,20 @@ router.get("/:org_id", (req, res) => {
   );
 });
 
+router.get("/getVideoByAccountId/:account_id", (req, res) => {
+  const accountId = req.params.account_id;
+  db.query(
+    "SELECT * FROM user_post WHERE account_id = (?)",
+    accountId,
+    (err, result) => {
+      if (err) {
+        res.send({ err: err });
+      } else {
+        console.log(result)
+        res.send(result);
+      }
+    }
+  );
+});
+
 module.exports = router;

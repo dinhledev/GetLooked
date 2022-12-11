@@ -11,12 +11,7 @@ import AWS from 'aws-sdk'
 
 function Registration() {
   const serverDomain = useGlobalConfigContext()["serverDomain"];
-  const S3_BUCKET = useGlobalConfigContext()["s3BucketImageName"]
-  const REGION = useGlobalConfigContext()["s3BucketRegion"]
-  AWS.config.update({
-      accessKeyId: useGlobalConfigContext()["accessKeyId"],
-      secretAccessKey: 'IYuxqjpVnpbLHDDIH8XdB91a5YocdDNlHYe3apj5'
-  })
+
   const history = useHistory();
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
@@ -26,8 +21,8 @@ function Registration() {
   const [dobReg, setDOBReg] = useState("");
   const [heightReg, setHeightReg] = useState(0);
   const [weightReg, setWeightReg] = useState(0);
-  const [sportReg, setSportReg] = useState("");
-  const [positionReg, setPositionReg] = useState("");
+  const [sportReg, setSportReg] = useState("Football");
+  const [positionReg, setPositionReg] = useState("Middle");
   const [aboutReg, setAboutReg] = useState("");
   const [orgNameReg, setOrgNameReg] = useState("");
   const [addressReg, setAddressReg] = useState("");
@@ -42,16 +37,8 @@ function Registration() {
       setSelectedFile(e.target.files[0]);
       setAccountPicReg(e.target.files[0].name);
   }
-
   const [passMatch, setPassMatch] = useState("");
   const [userThere, setUserThere] = useState("");
-
-
-  const myBucket = new AWS.S3({
-      params: { Bucket: S3_BUCKET},
-      region: REGION,
-  })
-
   const textAlign = {
     textAlign: "left",
     color: "#000000",
@@ -66,20 +53,28 @@ function Registration() {
   Axios.defaults.withCredentials = true;
   const uploadFile = (file) => {
 
-      const params = {
-          ACL: 'public-read',
-          Body: file,
-          Bucket: S3_BUCKET,
-          Key: file.name
+    Axios.post(serverDomain + "/register/generatePreSignedPutUrl", {
+      filename: file.name,
+      filetype: file.type
+    })
+    .then(function (result) {
+      var signedUrl = result.data.signedUrl;
+      
+      var options = {
+        headers: {
+          'Content-Type': file.type
+        }
       };
 
-      myBucket.putObject(params)
-          .on('httpUploadProgress', (evt) => {
-              setProgress(Math.round((evt.loaded / evt.total) * 100))
-          })
-          .send((err) => {
-              if (err) console.log(err)
-          })
+      return Axios.put(signedUrl, file, options);
+    })
+    .then(function (result) {
+      console.log(result);
+    })
+    .catch(function (err) {
+      console.log(err);
+    });
+
   }
 
   const register = (selectedFile) => {
@@ -258,13 +253,11 @@ function Registration() {
                 controlId="formBasicSport"
               >
                 <Form.Label>Sport</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Sport"
-                  onChange={(e) => {
-                    setSportReg(e.target.value);
-                  }}
-                />
+                <Form.Control as="select" onChange = {(e) => setSportReg(e.target.value)}>
+                  <option value="Football">Football</option>
+                  <option value="Basketball">Basketball</option>
+                  <option value="Soccer">Soccer</option>
+                </Form.Control>
               </Form.Group>
 
               <Form.Group
@@ -273,13 +266,12 @@ function Registration() {
                 controlId="formBasicPosition"
               >
                 <Form.Label>Position</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Position"
-                  onChange={(e) => {
-                    setPositionReg(e.target.value);
-                  }}
-                />
+                <Form.Control as="select" onChange = {(e) => setPositionReg(e.target.value)}>
+                  <option value="Middle">Middle</option>
+                  <option value="Forward">Forward</option>
+                  <option value="Gaurd">Gaurd</option>
+                  <option value="Freestyle">Freestyle</option>
+                </Form.Control>
               </Form.Group>
 
               <Form.Group
