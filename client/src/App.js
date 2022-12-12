@@ -20,15 +20,18 @@ function App(){
   const [data, setData] = useState("")
   Axios.defaults.withCredentials = true;
 
+  const domain = window.location.hostname;
+  var domainServer = "";
+  if(domain == "localhost") {
+    domainServer = "http://localhost:3001"
+  } else {
+    domainServer = "https://server.getlooked.com"
+  }
+  console.log(domainServer);
+
   const globalConfig = {
-
-    // "serverDomain": "https://server.getlooked.com",
-    // "serverDomainWithDash": "http://localhost:3001/"
-
-    "serverDomain": "http://localhost:3001",
-    "serverDomainWithDash": "http://localhost:3001/",
-    "s3BucketImageNameHttpWithDash": "https://s3.amazonaws.com/getlooked.com.images/",
-
+    "serverDomain": domainServer,
+    "s3BucketImageNameHttpWithDash": "https://s3.amazonaws.com/getlooked.com.images/"
   }
 
   useEffect(()=> {

@@ -66,57 +66,61 @@ function Login() {
   return (
     <>
     <CommonNav />
-    <div className="container Login">
-      <div className="signInHeader">Log In</div>
-      <Form>
-      <Form.Label style={messageConfirmStyle}>{messageConfirm}</Form.Label>
-        <Form.Group
-          style={textAlign}
-          className="mb-3"
-          controlId="formBasicEmail"
-        >
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-          />
-        </Form.Group>
+    <div className="container">
+      <div className="row justify-content-md-center">
+        <div className="col-3">
+          <div className="signInHeader">Log In</div>
+          <Form>
+          <Form.Label style={messageConfirmStyle}>{messageConfirm}</Form.Label>
+            <Form.Group
+              style={textAlign}
+              className="mb-3"
+              controlId="formBasicEmail"
+            >
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+            </Form.Group>
 
-        <Form.Group
-          style={textAlign}
-          className="mb-3"
-          controlId="formBasicPassword"
-        >
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            onChange={(e) => {
-              setPassword(e.target.value);
-            }}
-          />
-        </Form.Group>
-        <Button className="fullWidth" variant="primary" onClick={login}>
-          Login
-        </Button>
-        <div style={signUp}>
-          Not a registered user?{" "}
-          <a href="/register" style={signUpLink}>
-            Sign up{" "}
-          </a>{" "}
-          here
+            <Form.Group
+              style={textAlign}
+              className="mb-3"
+              controlId="formBasicPassword"
+            >
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
+            </Form.Group>
+            <Button className="fullWidth" variant="primary" onClick={login}>
+              Login
+            </Button>
+            <div style={signUp}>
+              Not a registered user?{" "}
+              <a href="/register" style={signUpLink}>
+                Sign up{" "}
+              </a>{" "}
+              here
+            </div>
+            <div style={signUp}>
+              Forgot Password?{" "}
+              <a href="/forgotpassword/" style={signUpLink}>
+                Reset password{" "}
+              </a>{" "}
+              here
+            </div>
+          </Form>
         </div>
-        <div style={signUp}>
-          Forgot Password?{" "}
-          <a href="/forgotpassword/" style={signUpLink}>
-            Reset password{" "}
-          </a>{" "}
-          here
-        </div>
-      </Form>
+      </div>
     </div>
     <div class="mt-5 p-4 bg-dark text-white text-center">
         <p>GetLooked © 2022</p>

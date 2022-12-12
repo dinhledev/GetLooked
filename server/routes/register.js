@@ -5,27 +5,33 @@ let router = express.Router();
 const saltRounds = 10;
 const AWS = require("aws-sdk");
 AWS.config.update({
-  accessKeyId: 'us-AKIAZSW2QC2UBDTISUVY-1',
-  secretAccessKey: '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',
+  accessKeyId: "AKIAZSW2QC2UCMCL3CFR",
+  secretAccessKey: "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",
 })
-const S3_BUCKET ='getlooked.com.images';
-const REGION ='us-east-1';
+const S3_BUCKET ="getlooked.com.images";
+const REGION ="us-east-1";
 const URL_EXPIRATION_TIME = 60; // in seconds
 
 const myBucket = new AWS.S3({
     params: { Bucket: S3_BUCKET},
-    region: REGION,
+    region: REGION
 })
 
 router.post("/generatePreSignedPutUrl", (req, res) => {
   const fileName = req.body.fileName;
   const fileType = req.body.fileType;
+  console.log(fileName + " "  + fileType);
   myBucket.getSignedUrl('putObject', {
       Key: fileName,
       ContentType: fileType,
       Expires: URL_EXPIRATION_TIME
-  } , (err , url) => {
-      return url // API Response Here
+  } , (err, result) => {
+    if (err) {
+      res.send({ err: err });
+    } else {
+      console.log(result);
+      res.send(result);
+    }
   });
 
 });

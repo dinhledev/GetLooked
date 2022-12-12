@@ -52,29 +52,22 @@ function Registration() {
 
   Axios.defaults.withCredentials = true;
   const uploadFile = (file) => {
-
+    console.log(file.name);
+    console.log(file.type);
     Axios.post(serverDomain + "/register/generatePreSignedPutUrl", {
-      filename: file.name,
-      filetype: file.type
-    })
-    .then(function (result) {
-      var signedUrl = result.data.signedUrl;
+      fileName: file.name,
+      fileType: file.type
+    }).then((response) => {
+      console.log(response.data);
+      var signedUrl = response.data;
       
       var options = {
         headers: {
           'Content-Type': file.type
         }
       };
-
-      return Axios.put(signedUrl, file, options);
-    })
-    .then(function (result) {
-      console.log(result);
-    })
-    .catch(function (err) {
-      console.log(err);
+      Axios.put(signedUrl, file, options);
     });
-
   }
 
   const register = (selectedFile) => {
@@ -118,267 +111,270 @@ function Registration() {
   return (
     <>
       <CommonNav />
-      <div className="container Registration">
-        <div className="signInHeader">Sign Up Here</div>
+      <div className="container">
+        <div className="row justify-content-md-center">
+          <div className="col-6">
+          <div className="signInHeader">Sign Up Here</div>
+            <Form>
+              <div className="row">
+                <div className="col">
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicEmail"
+                  >
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Email"
+                      onChange={(e) => {
+                        setEmailReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-        <Form>
-          <div className="row">
-            <div className="col">
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicEmail"
-              >
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Email"
-                  onChange={(e) => {
-                    setEmailReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicPassword"
+                  >
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
+                      onChange={(e) => {
+                        setPasswordReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicConfirmPassword"
+                  >
+                    <Form.Label>Confirm Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Re-enter Password"
+                      onChange={(e) => {
+                        setConfirmPasswordReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicPassword"
-              >
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  onChange={(e) => {
-                    setPasswordReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicConfirmPassword"
-              >
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Re-enter Password"
-                  onChange={(e) => {
-                    setConfirmPasswordReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicFirstName"
+                  >
+                    <Form.Label>First Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="First Name"
+                      onChange={(e) => {
+                        setFirsNameReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicLastName"
+                  >
+                    <Form.Label>Last Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Last Name"
+                      onChange={(e) => {
+                        setLastNameReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicDOB"
+                  >
+                    <Form.Label>Date of Birth</Form.Label>
+                    <Form.Control
+                      type="date"
+                      placeholder="Date of Birth"
+                      onChange={(e) => {
+                        setDOBReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicHeight"
+                  >
+                    <Form.Label>Heigth</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Height"
+                      onChange={(e) => {
+                        setHeightReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicWeight"
+                  >
+                    <Form.Label>Weight</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Weight"
+                      onChange={(e) => {
+                        setWeightReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label>Upload your picture</Form.Label>
+                    <Form.Control
+                      type="file"
+                      onChange={handleFileInput}
+                    />
+                  </Form.Group>
+                </div>
+                <div className="col">
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicSport"
+                  >
+                    <Form.Label>Sport</Form.Label>
+                    <Form.Control as="select" onChange = {(e) => setSportReg(e.target.value)}>
+                      <option value="Football">Football</option>
+                      <option value="Basketball">Basketball</option>
+                      <option value="Soccer">Soccer</option>
+                    </Form.Control>
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicFirstName"
-              >
-                <Form.Label>First Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="First Name"
-                  onChange={(e) => {
-                    setFirsNameReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicLastName"
-              >
-                <Form.Label>Last Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Last Name"
-                  onChange={(e) => {
-                    setLastNameReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicDOB"
-              >
-                <Form.Label>Date of Birth</Form.Label>
-                <Form.Control
-                  type="date"
-                  placeholder="Date of Birth"
-                  onChange={(e) => {
-                    setDOBReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicHeight"
-              >
-                <Form.Label>Heigth</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Height"
-                  onChange={(e) => {
-                    setHeightReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicWeight"
-              >
-                <Form.Label>Weight</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Weight"
-                  onChange={(e) => {
-                    setWeightReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-              <Form.Group controlId="formFile" className="mb-3">
-                <Form.Label>Upload your picture</Form.Label>
-                <Form.Control
-                  type="file"
-                  onChange={handleFileInput}
-                />
-              </Form.Group>
-            </div>
-            <div className="col">
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicSport"
-              >
-                <Form.Label>Sport</Form.Label>
-                <Form.Control as="select" onChange = {(e) => setSportReg(e.target.value)}>
-                  <option value="Football">Football</option>
-                  <option value="Basketball">Basketball</option>
-                  <option value="Soccer">Soccer</option>
-                </Form.Control>
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicPosition"
+                  >
+                    <Form.Label>Position</Form.Label>
+                    <Form.Control as="select" onChange = {(e) => setPositionReg(e.target.value)}>
+                      <option value="Middle">Middle</option>
+                      <option value="Forward">Forward</option>
+                      <option value="Gaurd">Gaurd</option>
+                      <option value="Freestyle">Freestyle</option>
+                    </Form.Control>
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicPosition"
-              >
-                <Form.Label>Position</Form.Label>
-                <Form.Control as="select" onChange = {(e) => setPositionReg(e.target.value)}>
-                  <option value="Middle">Middle</option>
-                  <option value="Forward">Forward</option>
-                  <option value="Gaurd">Gaurd</option>
-                  <option value="Freestyle">Freestyle</option>
-                </Form.Control>
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicAbout"
+                  >
+                    <Form.Label>About</Form.Label>
+                    <Form.Control
+                      type="text"
+                      as="textarea"
+                      placeholder="About"
+                      onChange={(e) => {
+                        setAboutReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicAbout"
-              >
-                <Form.Label>About</Form.Label>
-                <Form.Control
-                  type="text"
-                  as="textarea"
-                  placeholder="About"
-                  onChange={(e) => {
-                    setAboutReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicOrgName"
+                  >
+                    <Form.Label>Org Name</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Org Name"
+                      onChange={(e) => {
+                        setOrgNameReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicOrgName"
-              >
-                <Form.Label>Org Name</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Org Name"
-                  onChange={(e) => {
-                    setOrgNameReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicStreetAddress"
+                  >
+                    <Form.Label>Street Address</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="Street Address"
+                      onChange={(e) => {
+                        setAddressReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicStreetAddress"
-              >
-                <Form.Label>Street Address</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Street Address"
-                  onChange={(e) => {
-                    setAddressReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicCity"
+                  >
+                    <Form.Label>City</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="City"
+                      onChange={(e) => {
+                        setCityReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicCity"
-              >
-                <Form.Label>City</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="City"
-                  onChange={(e) => {
-                    setCityReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicState"
+                  >
+                    <Form.Label>State</Form.Label>
+                    <Form.Control
+                      type="text"
+                      placeholder="State"
+                      onChange={(e) => {
+                        setStateReg(e.target.value);
+                      }}
+                    />
+                  </Form.Group>
 
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicState"
-              >
-                <Form.Label>State</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="State"
-                  onChange={(e) => {
-                    setStateReg(e.target.value);
-                  }}
-                />
-              </Form.Group>
-
-              <Form.Group
-                style={textAlign}
-                className="mb-3"
-                controlId="formBasicIsOrg"
-              >
-                <Form.Label>Is Org</Form.Label>
-                <Form.Check
-                  aria-label="option 1"
-                  onClick={(e) => {
-                    setIsOrgReg((e.target.value = "on" ? 1 : 0));
-                  }}
-                />
-              </Form.Group>
-            </div>
+                  <Form.Group
+                    style={textAlign}
+                    className="mb-3"
+                    controlId="formBasicIsOrg"
+                  >
+                    <Form.Label>Is Org</Form.Label>
+                    <Form.Check
+                      aria-label="option 1"
+                      onClick={(e) => {
+                        setIsOrgReg((e.target.value = "on" ? 1 : 0));
+                      }}
+                    />
+                  </Form.Group>
+                </div>
+              </div>
+              <Button className="fullWidth" variant="primary"  onClick={() => register(selectedFile)}>
+                Sign Up
+              </Button>
+              <div style={signUp}>
+                Already a user?{" "}
+                <a href="/login" style={signUpLink}>
+                  Login
+                </a>{" "}
+                here
+              </div>
+            </Form>
+            {userThere}
+            <br />
+            {passMatch}
           </div>
-          <Button className="fullWidth" variant="primary"  onClick={() => register(selectedFile)}>
-            Sign Up
-          </Button>
-          <div style={signUp}>
-            Already a user?{" "}
-            <a href="/login" style={signUpLink}>
-              Login
-            </a>{" "}
-            here
-          </div>
-        </Form>
-        {userThere}
-        <br />
-        {passMatch}
+        </div>  
       </div>
       <div class="mt-5 p-4 bg-dark text-white text-center">
         <p>GetLooked © 2022</p>
