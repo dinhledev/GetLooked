@@ -4,11 +4,12 @@ const db = require("../db");
 let router = express.Router();
 const saltRounds = 10;
 const AWS = require("aws-sdk");
+require('dotenv').config();
 AWS.config.update({
-  accessKeyId: "AKIAZSW2QC2UCMCL3CFR",
-  secretAccessKey: "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",
+  accessKeyId: process.env.AWSAccessKeyId,
+  secretAccessKey: process.env.AWSSecretKey
 })
-const S3_BUCKET ="getlooked.com.images";
+const S3_BUCKET = process.env.Bucket
 const REGION ="us-east-1";
 const URL_EXPIRATION_TIME = 60; // in seconds
 
